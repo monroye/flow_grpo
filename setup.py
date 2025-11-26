@@ -6,8 +6,8 @@ setup(
     packages=find_packages(),
     python_requires=">=3.10",
     install_requires=[
-        "torch==2.6.0",
-        "torchvision==0.21.0",
+        "torch==2.4.0",
+        "torchvision==0.19.0",
         "torchaudio",
         "transformers==4.40.0",
         "accelerate==1.4.0",
@@ -32,7 +32,7 @@ setup(
         # "flash-attn==2.7.4.post1",
         "deepspeed==0.16.4",  
         "peft==0.10.0",       
-        "bitsandbytes==0.45.3",
+        # "bitsandbytes==0.45.3",
         
         "aiohttp==3.11.13",
         "fastapi==0.115.11", 
@@ -49,6 +49,8 @@ setup(
         "ml_collections",
         "sentencepiece",
         "openai",
+        # "lightning[extra]>=2.5.5",
+        "lightning>=2.5.5",
     ],
     extras_require={
         "dev": [

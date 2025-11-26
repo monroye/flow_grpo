@@ -153,6 +153,12 @@ def init_distributed():
     
     # Setup device
     device = torch.device(f'cuda:{local_rank}')
+    
+    # Check if the device index is valid
+    if local_rank >= torch.cuda.device_count():
+        print(f"Warning: local_rank {local_rank} is >= device_count {torch.cuda.device_count()}")
+        # Fallback or raise error appropriately
+        
     torch.cuda.set_device(device)
     
     return True, rank, world_size, local_rank

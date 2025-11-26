@@ -292,13 +292,25 @@ class PackedAttention(Qwen2Attention):
             packed_query_states = pad_sequence(packed_query_states.permute(1, 0, 2), pad_size)
             packed_key_states = pad_sequence(packed_key_states.permute(1, 0, 2), pad_size)
             packed_value_states = pad_sequence(packed_value_states.permute(1, 0, 2), pad_size)
-            packed_attn_output = flex_attention(
-                packed_query_states.unsqueeze(0), 
-                packed_key_states.unsqueeze(0), 
-                packed_value_states.unsqueeze(0), 
-                enable_gqa=True,
-                block_mask=attention_mask,
-            )
+            
+            # Revert enable_gqa usage for compatibility with older PyTorch
+            # Using standard flex_attention without enable_gqa if not supported
+            try:
+                packed_attn_output = flex_attention(
+                    packed_query_states.unsqueeze(0), 
+                    packed_key_states.unsqueeze(0), 
+                    packed_value_states.unsqueeze(0), 
+                    enable_gqa=True,
+                    block_mask=attention_mask,
+                )
+            except TypeError:
+                packed_attn_output = flex_attention(
+                    packed_query_states.unsqueeze(0), 
+                    packed_key_states.unsqueeze(0), 
+                    packed_value_states.unsqueeze(0), 
+                    # enable_gqa=True, # Removed for compatibility
+                    block_mask=attention_mask,
+                )
             end_index = packed_attn_output.shape[2] - pad_size
             packed_attn_output = packed_attn_output[0, :, :end_index, :]
 
@@ -476,13 +488,23 @@ class PackedAttentionMoT(Qwen2Attention):
             packed_query_states_ = pad_sequence(packed_query_states_.permute(1, 0, 2), pad_size)
             packed_key_states_ = pad_sequence(packed_key_states_.permute(1, 0, 2), pad_size)
             packed_value_states = pad_sequence(packed_value_states.permute(1, 0, 2), pad_size)
-            packed_attn_output = flex_attention(
-                packed_query_states_.unsqueeze(0), # 1, num_head, L, head_dim
-                packed_key_states_.unsqueeze(0), 
-                packed_value_states.unsqueeze(0), 
-                enable_gqa=True,
-                block_mask=attention_mask,
-            )
+            
+            try:
+                packed_attn_output = flex_attention(
+                    packed_query_states_.unsqueeze(0), # 1, num_head, L, head_dim
+                    packed_key_states_.unsqueeze(0), 
+                    packed_value_states.unsqueeze(0), 
+                    enable_gqa=True,
+                    block_mask=attention_mask,
+                )
+            except TypeError:
+                packed_attn_output = flex_attention(
+                    packed_query_states_.unsqueeze(0), # 1, num_head, L, head_dim
+                    packed_key_states_.unsqueeze(0), 
+                    packed_value_states.unsqueeze(0), 
+                    # enable_gqa=True,
+                    block_mask=attention_mask,
+                )
             end_index = packed_attn_output.shape[2] - pad_size
             packed_attn_output = packed_attn_output[0, :, :end_index, :]
 

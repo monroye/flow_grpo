@@ -372,7 +372,7 @@ def main(_):
     if rank == 0:
         wandb.init(
             project="flow_grpo",
-            # mode="disabled"
+            mode="disabled"
         )
     logger.info(f"\n{config}")
 
