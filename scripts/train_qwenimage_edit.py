@@ -29,6 +29,12 @@ from flow_grpo.diffusers_patch.qwenimage_edit_pipeline_with_logprob import pipel
 from flow_grpo.diffusers_patch.sd3_sde_with_logprob import sde_step_with_logprob
 import torch
 import wandb
+# Disable wandb
+wandb.init = lambda *args, **kwargs: None
+wandb.log = lambda *args, **kwargs: None
+class DummyWandbImage:
+    def __init__(self, *args, **kwargs): pass
+wandb.Image = DummyWandbImage
 from functools import partial
 import tqdm
 import tempfile
@@ -74,7 +80,8 @@ class GenevalPromptImageDataset(Dataset):
     def __getitem__(self, idx):
         item = {
             "prompt": self.prompts[idx],
-            "metadata": self.metadatas[idx]
+            "metadata": self.metadatas[idx],
+            "index": idx
         }
         # Assuming 'image' in metadata contains a path to the image file
         image_path = self.metadatas[idx]['image']
@@ -89,7 +96,8 @@ class GenevalPromptImageDataset(Dataset):
         metadatas = [example["metadata"] for example in examples]
         images = [example["image"] for example in examples]
         prompt_with_image_paths = [example["prompt_with_image_path"] for example in examples]
-        return prompts, metadatas, images, prompt_with_image_paths
+        indices = [example["index"] for example in examples]
+        return prompts, metadatas, images, prompt_with_image_paths, indices
 
 
 class DistributedKRepeatSampler(Sampler):
@@ -256,7 +264,7 @@ def eval(pipeline, test_dataloader, config, rank, local_rank, world_size, device
             disable=local_rank != 0,
             position=0,
         ):
-        prompts, prompt_metadata, ref_images, _ = test_batch
+        prompts, prompt_metadata, ref_images, _, _ = test_batch
         ref_images = [ref_image.resize((config.resolution, config.resolution)) for ref_image in ref_images]
         with autocast():
             with torch.no_grad():
@@ -300,34 +308,22 @@ def eval(pipeline, test_dataloader, config, rank, local_rank, world_size, device
         last_batch_rewards_gather[key] = gather_tensor(torch.as_tensor(value, device=device).contiguous(), world_size).cpu().float().numpy()
 
     all_rewards = {key: np.concatenate(value) for key, value in all_rewards.items()}
+    
+    # Save images on rank 0
     if rank == 0:
-        with tempfile.TemporaryDirectory() as tmpdir:
-            num_samples = min(15, len(last_batch_images_gather))
-            sample_indices = range(num_samples)
-            for idx, index in enumerate(sample_indices):
-                image = last_batch_images_gather[index]
-                pil = Image.fromarray(
-                    (image.transpose(1, 2, 0) * 255).astype(np.uint8)
-                )
-                pil = pil.resize((config.resolution, config.resolution))
-                pil.save(os.path.join(tmpdir, f"{idx}.jpg"))
-            sampled_prompts = [last_batch_prompts_gather[index] for index in sample_indices]
-            sampled_rewards = [{k: last_batch_rewards_gather[k][index] for k in last_batch_rewards_gather} for index in sample_indices]
-            for key, value in all_rewards.items():
-                print(key, value.shape)
-            wandb.log(
-                {
-                    "eval_images": [
-                        wandb.Image(
-                            os.path.join(tmpdir, f"{idx}.jpg"),
-                            caption=f"{prompt:.1000} | " + " | ".join(f"{k}: {v:.2f}" for k, v in reward.items() if v != -10),
-                        )
-                        for idx, (prompt, reward) in enumerate(zip(sampled_prompts, sampled_rewards))
-                    ],
-                    **{f"eval_reward_{key}": np.mean(value[value != -10]) for key, value in all_rewards.items()},
-                },
-                step=global_step,
+        eval_save_dir = os.path.join(config.logdir, config.run_name, "eval_images")
+        os.makedirs(eval_save_dir, exist_ok=True)
+        
+        for idx, image in enumerate(last_batch_images_gather):
+            pil = Image.fromarray(
+                (image.transpose(1, 2, 0) * 255).astype(np.uint8)
             )
+            pil = pil.resize((config.resolution, config.resolution))
+            pil.save(os.path.join(eval_save_dir, f"step_{global_step}_eval_{idx}.jpg"))
+            
+        for key, value in all_rewards.items():
+            print(f"Eval {key}: {np.mean(value[value != -10])}")
+
     if config.train.ema:
         ema.copy_temp_to(transformer_trainable_parameters)
 
@@ -610,7 +606,7 @@ def main(_):
             position=0,
         ):
             train_sampler.set_epoch(epoch * config.sample.num_batches_per_epoch + i)
-            prompts, prompt_metadata, ref_images, prompt_with_image_paths = next(train_iter)
+            prompts, prompt_metadata, ref_images, prompt_with_image_paths, prompt_indices = next(train_iter)
             ref_images = [ref_image.resize((config.resolution, config.resolution)) for ref_image in ref_images]
             prompt_ids = pipeline.tokenizer(
                 prompt_with_image_paths,
@@ -656,6 +652,8 @@ def main(_):
             samples.append(
                 {
                     "prompt_ids": prompt_ids,
+                    "prompt_indices": torch.tensor(prompt_indices, device=device),
+                    "images": images.cpu(), # Save images for logging
                     "prompt_embeds": collected_data["prompt_embeds"],
                     "prompt_embeds_mask": collected_data["prompt_embeds_mask"],
                     "negative_prompt_embeds": collected_data["negative_prompt_embeds"],
@@ -722,35 +720,35 @@ def main(_):
             for k in samples[0].keys()
         }
 
-        if epoch % 10 == 0 and rank == 0:
-            # this is a hack to force wandb to log the images as JPEGs instead of PNGs
-            with tempfile.TemporaryDirectory() as tmpdir:
-                num_samples = min(15, len(images))
-                sample_indices = random.sample(range(len(images)), num_samples)
-
-                for idx, i in enumerate(sample_indices):
-                    image = images[i]
-                    pil = Image.fromarray(
-                        (image.cpu().float().numpy().transpose(1, 2, 0) * 255).astype(np.uint8)
-                    )
-                    pil = pil.resize((config.resolution, config.resolution))
-                    pil.save(os.path.join(tmpdir, f"{idx}.jpg"))
-
-                sampled_prompts = [prompts[i] for i in sample_indices]
-                sampled_rewards = [rewards['avg'][i] for i in sample_indices]
-
-                wandb.log(
-                    {
-                        "images": [
-                            wandb.Image(
-                                os.path.join(tmpdir, f"{idx}.jpg"),
-                                caption=f"{prompt:.100} | avg: {avg_reward:.2f}",
-                            )
-                            for idx, (prompt, avg_reward) in enumerate(zip(sampled_prompts, sampled_rewards))
-                        ],
-                    },
-                    step=global_step,
-                )
+        # if epoch % 10 == 0 and rank == 0:
+        #     # this is a hack to force wandb to log the images as JPEGs instead of PNGs
+        #     with tempfile.TemporaryDirectory() as tmpdir:
+        #         num_samples = min(15, len(images))
+        #         sample_indices = random.sample(range(len(images)), num_samples)
+        #
+        #         for idx, i in enumerate(sample_indices):
+        #             image = images[i]
+        #             pil = Image.fromarray(
+        #                 (image.cpu().float().numpy().transpose(1, 2, 0) * 255).astype(np.uint8)
+        #             )
+        #             pil = pil.resize((config.resolution, config.resolution))
+        #             pil.save(os.path.join(tmpdir, f"{idx}.jpg"))
+        #
+        #         sampled_prompts = [prompts[i] for i in sample_indices]
+        #         sampled_rewards = [rewards['avg'][i] for i in sample_indices]
+        #
+        #         wandb.log(
+        #             {
+        #                 "images": [
+        #                     wandb.Image(
+        #                         os.path.join(tmpdir, f"{idx}.jpg"),
+        #                         caption=f"{prompt:.100} | avg: {avg_reward:.2f}",
+        #                     )
+        #                     for idx, (prompt, avg_reward) in enumerate(zip(sampled_prompts, sampled_rewards))
+        #                 ],
+        #             },
+        #             step=global_step,
+        #         )
         samples["rewards"]["ori_avg"] = samples["rewards"]["avg"]
         # The purpose of repeating `adv` along the timestep dimension here is to make it easier to introduce timestep-dependent advantages later, such as adding a KL reward.
         samples["rewards"]["avg"] = samples["rewards"]["avg"].unsqueeze(1).repeat(1, num_train_timesteps)
@@ -806,8 +804,39 @@ def main(_):
         if local_rank == 0:
             print("advantages: ", samples["advantages"].abs().mean())
 
+        # Save generated images on rank 0 only, but ensuring gathering is done if needed
+        # Since samples are already local, and we only want to save a subset or save them distributedly.
+        # If we want to save ALL images from ALL ranks, we need to gather them.
+        # However, saving images from each rank locally to a shared filesystem is more efficient and avoids gathering large tensors.
+        # Let's modify filenames to include rank so they don't overwrite.
+        
+        gen_save_dir = os.path.join(config.logdir, config.run_name, "generated_images")
+        os.makedirs(gen_save_dir, exist_ok=True)
+        
+        for idx in range(len(samples["images"])):
+            image = samples["images"][idx]
+            # advantages is [N, T], take first step
+            adv = samples["advantages"][idx][0].item()
+            # rewards['ori_avg'] is [N]
+            reward = samples["rewards"]["ori_avg"][idx].item()
+            
+            # group is the prompt index in the dataset
+            group = samples["prompt_indices"][idx].item()
+
+            pil = Image.fromarray(
+                (image.float().numpy().transpose(1, 2, 0) * 255).astype(np.uint8)
+            )
+            pil = pil.resize((config.resolution, config.resolution))
+            
+            # format: step_{global_step}_epoch_{epoch}_rank_{rank}_idx_{idx}_group_{group}_reward_{reward:.4f}_adv_{adv:.4f}.jpg
+            # using rank and idx as group identifier
+            filename = f"step_{global_step}_epoch_{epoch}_rank_{rank}_idx_{idx}_group_{group}_reward_{reward:.4f}_adv_{adv:.4f}.jpg"
+            pil.save(os.path.join(gen_save_dir, filename))
+
         del samples["rewards"]
         del samples["prompt_ids"]
+        del samples["images"]
+        del samples["prompt_indices"]
 
         total_batch_size, num_timesteps = samples["timesteps"].shape
         gradient_accumulation_steps = config.train.gradient_accumulation_steps * num_train_timesteps

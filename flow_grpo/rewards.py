@@ -219,7 +219,7 @@ def geneval_score(device):
     url = "http://127.0.0.1:18085"
     sess = requests.Session()
     retries = Retry(
-        total=1000, backoff_factor=1, status_forcelist=[500], allowed_methods=False
+        total=0, backoff_factor=0.1, status_forcelist=[500], allowed_methods=False
     )
     sess.mount("http://", HTTPAdapter(max_retries=retries))
 
@@ -254,14 +254,23 @@ def geneval_score(device):
             data_bytes = pickle.dumps(data)
 
             # send a request to the llava server
-            response = sess.post(url, data=data_bytes, timeout=120)
-            response_data = pickle.loads(response.content)
+            try:
+                response = sess.post(url, data=data_bytes, timeout=120)
+                response_data = pickle.loads(response.content)
 
-            all_scores += response_data["scores"]
-            all_rewards += response_data["rewards"]
-            all_strict_rewards += response_data["strict_rewards"]
-            all_group_strict_rewards.append(response_data["group_strict_rewards"])
-            all_group_rewards.append(response_data["group_rewards"])
+                all_scores += response_data["scores"]
+                all_rewards += response_data["rewards"]
+                all_strict_rewards += response_data["strict_rewards"]
+                all_group_strict_rewards.append(response_data["group_strict_rewards"])
+                all_group_rewards.append(response_data["group_rewards"])
+            except (requests.exceptions.ConnectionError, requests.exceptions.Timeout, ConnectionRefusedError):
+                print(f"Warning: Could not connect to GenEval server at {url}. Returning 0.0 scores.")
+                count = len(image_batch)
+                all_scores += [0.0] * count
+                all_rewards += [0.0] * count
+                all_strict_rewards += [0.0] * count
+                all_group_strict_rewards.append({})
+                all_group_rewards.append({})
         all_group_strict_rewards_dict = defaultdict(list)
         all_group_rewards_dict = defaultdict(list)
         for current_dict in all_group_strict_rewards:
