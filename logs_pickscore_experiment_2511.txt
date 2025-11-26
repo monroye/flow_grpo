@@ -1,0 +1,555 @@
+
+[W1126 01:59:53.194145936 CUDAAllocatorConfig.h:28] Warning: expandable_segments not supported on this platform (function operator())
+I1126 01:59:53.024971 129309114165056 train_qwenimage_edit.py:373] 
+activation_checkpointing: true
+allow_tf32: true
+dataset: /home/ubuntu/flow_grpo/dataset/counting_edit
+debug: false
+eval_freq: 30
+fsdp_optimizer_offload: true
+logdir: logs
+mixed_precision: bf16
+num_checkpoint_limit: 5
+num_epochs: 100000
+per_prompt_stat_tracking: true
+pretrained:
+  model: Qwen/Qwen-Image-Edit
+  revision: main
+prompt_fn: general_ocr
+prompt_fn_kwargs: {}
+resolution: 512
+resume_from: null
+reward_fn:
+  pickscore: 1.0
+run_name: 2025.11.26_01.59.53
+sample:
+  batch_size: 8
+  eval_guidance_scale: 4.5
+  eval_num_steps: 50
+  global_std: true
+  guidance_scale: 4.0
+  noise_level: 1.0
+  num_batches_per_epoch: 16
+  num_image_per_prompt: 16
+  num_steps: 10
+  same_latent: false
+  sde_window_range: !!python/tuple
+  - 0
+  - 10
+  sde_window_size: 0
+  test_batch_size: 4
+  train_batch_size: 4
+save_dir: logs/pickscore/qwenimage_edit
+save_freq: 60
+seed: 42
+train:
+  adam_beta1: 0.9
+  adam_beta2: 0.999
+  adam_epsilon: 1.0e-08
+  adam_weight_decay: 0.0001
+  adv_clip_max: 5
+  batch_size: 4
+  beta: 0.0
+  cfg: true
+  clip_range: 0.0001
+  clip_range_gt: 0.0001
+  clip_range_lt: 0.0001
+  ema: false
+  gradient_accumulation_steps: 8
+  learning_rate: 0.0003
+  lora_path: null
+  max_grad_norm: 1.0
+  num_inner_epochs: 1
+  timestep_fraction: 1.0
+  timestep_shift: 3.0
+  use_8bit_adam: false
+use_lora: true
+
+Loading pipeline components...:  17%|█▋        | 1/6 [00:00<00:03,  1.49iLoading pipeline components...:  33%|███▎      | 2/6 [00:00<00:01,  2.11iLoading pipeline components...:  17%|█▋        | 1/6 [00:00<00:00,  5.24iLoading pipeline components...:  33%|███▎      | 2/6 [00:00<00:00,  9.96iLoading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00, 40.97it/s]
+Loading pipeline components...:  33%|███▎      | 2/6 [00:00<00:01,  2.61iLoading checkpoint shards: 100%|██████████| 9/9 [00:00<00:00, 42.12it/s]
+Loading pipeline components...:  17%|█▋        | 1/6 [00:00<00:01,  2.93iLoading pipeline components...:  17%|█▋        | 1/6 [00:00<00:03,  1.46iLoading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00, 40.29it/s]
+Loading pipeline components...:  50%|█████     | 3/6 [00:00<00:00,  8.31iLoading checkpoint shards: 100%|██████████| 9/9 [00:00<00:00, 40.61it/s]
+Loading pipeline components...:  50%|█████     | 3/6 [00:01<00:01,  2.39iLoading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00, 39.23it/s]
+Loading pipeline components...:  33%|███▎      | 2/6 [00:00<00:01,  2.51iLoading pipeline components...:  17%|█▋        | 1/6 [00:00<00:03,  1.50iLoading pipeline components...:  33%|███▎      | 2/6 [00:00<00:01,  2.90iLoading checkpoint shards: 100%|██████████| 9/9 [00:00<00:00, 22.01it/s]
+Loading pipeline components...:  67%|██████▋   | 4/6 [00:00<00:00,  4.84iLoading checkpoint shards: 100%|██████████| 9/9 [00:00<00:00, 39.65it/s]
+Loading pipeline components...:  83%|████████▎ | 5/6 [00:01<00:00,  4.19iLoading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00, 41.42it/s]
+Loading pipeline components...:  83%|████████▎ | 5/6 [00:01<00:00,  3.46iLoading pipeline components...: 100%|██████████| 6/6 [00:01<00:00,  3.70it/s]ing checkpoint shards:   0%|          | 0/9 [00:00<?, ?it/s]
+Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00, 38.35it/s]
+Loading pipeline components...:  83%|████████▎ | 5/6 [00:00<00:00,  5.05iLoading pipeline components...:  50%|█████     | 3/6 [00:00<00:00,  3.06iLoading pipeline components...: 100%|██████████| 6/6 [00:01<00:00,  4.54iLoading pipeline components...: 100%|██████████| 6/6 [00:01<00:00,  3.84it/s]
+Loading pipeline components...:  83%|████████▎ | 5/6 [00:01<00:00,  4.36iLoading checkpoint shards: 100%|██████████| 9/9 [00:00<00:00, 20.25it/s]
+Loading pipeline components...:  50%|█████     | 3/6 [00:01<00:01,  2.53iLoading checkpoint shards: 100%|██████████| 9/9 [00:00<00:00, 19.73it/s]
+Loading pipeline components...:  67%|██████▋   | 4/6 [00:01<00:00,  3.10iLoading pipeline components...:  67%|██████▋   | 4/6 [00:01<00:00,  2.98iLoading checkpoint shards: 100%|██████████| 9/9 [00:00<00:00, 32.40it/s]
+Loading pipeline components...:  67%|██████▋   | 4/6 [00:01<00:00,  3.18iLoading pipeline components...:  50%|█████     | 3/6 [00:01<00:01,  1.62iLoading pipeline components...:  83%|████████▎ | 5/6 [00:01<00:00,  3.61iLoading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00, 41.71it/s]
+Loading pipeline components...: 100%|██████████| 6/6 [00:01<00:00,  4.70iLoading pipeline components...: 100%|██████████| 6/6 [00:01<00:00,  3.96it/s]
+Loading pipeline components...: 100%|██████████| 6/6 [00:01<00:00,  3.05iLoading pipeline components...: 100%|██████████| 6/6 [00:01<00:00,  3.81it/s]
+Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00, 41.20it/s]
+Loading pipeline components...: 100%|██████████| 6/6 [00:01<00:00,  4.94iLoading pipeline components...: 100%|██████████| 6/6 [00:01<00:00,  3.74it/s]
+Loading checkpoint shards: 100%|██████████| 9/9 [00:00<00:00, 40.58it/s]
+Loading pipeline components...: 100%|██████████| 6/6 [00:01<00:00,  3.12iLoading pipeline components...: 100%|██████████| 6/6 [00:01<00:00,  3.71it/s]
+Loading pipeline components...: 100%|██████████| 6/6 [00:01<00:00,  3.92iLoading pipeline components...: 100%|██████████| 6/6 [00:01<00:00,  3.04it/s]
+Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00, 40.25it/s]
+Loading pipeline components...: 100%|██████████| 6/6 [00:01<00:00,  3.99iLoading pipeline components...: 100%|██████████| 6/6 [00:01<00:00,  3.61it/s]
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+I1126 02:01:56.619738 124779582269248 train_qwenimage_edit.py:571] ***** Running training *****
+I1126 02:01:56.620015 124779582269248 train_qwenimage_edit.py:572]   Sample batch size per device = 4
+I1126 02:01:56.620058 124779582269248 train_qwenimage_edit.py:573]   Train batch size per device = 4
+I1126 02:01:56.620091 124779582269248 train_qwenimage_edit.py:574]   Gradient Accumulation steps = 8
+I1126 02:01:56.620118 124779582269248 train_qwenimage_edit.py:577] 
+I1126 02:01:56.620144 124779582269248 train_qwenimage_edit.py:578]   Total number of samples per epoch = 512
+I1126 02:01:56.620168 124779582269248 train_qwenimage_edit.py:579]   Total train batch size (w. parallel, distributed & accumulation) = 256
+I1126 02:01:56.620196 124779582269248 train_qwenimage_edit.py:582]   Number of gradient updates per inner epoch = 2
+I1126 02:01:56.620223 124779582269248 train_qwenimage_edit.py:585]   Number of inner epochs = 1
+I1126 02:01:57.806253 139865274066752 train_qwenimage_edit.py:571] ***** Running training *****
+I1126 02:01:57.806537 139865274066752 train_qwenimage_edit.py:572]   Sample batch size per device = 4
+I1126 02:01:57.806578 139865274066752 train_qwenimage_edit.py:573]   Train batch size per device = 4
+I1126 02:01:57.806610 139865274066752 train_qwenimage_edit.py:574]   Gradient Accumulation steps = 8
+I1126 02:01:57.806639 139865274066752 train_qwenimage_edit.py:577] 
+I1126 02:01:57.806666 139865274066752 train_qwenimage_edit.py:578]   Total number of samples per epoch = 512
+I1126 02:01:57.806693 139865274066752 train_qwenimage_edit.py:579]   Total train batch size (w. parallel, distributed & accumulation) = 256
+I1126 02:01:57.806718 139865274066752 train_qwenimage_edit.py:582]   Number of gradient updates per inner epoch = 2
+I1126 02:01:57.806744 139865274066752 train_qwenimage_edit.py:585]   Number of inner epochs = 1
+/home/ubuntu/flow_grpo/scripts/train_qwenimage_edit.py:545: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  autocast = lambda: torch.cuda.amp.autocast(dtype=torch.bfloat16)
+I1126 02:01:58.568929 127518508840768 train_qwenimage_edit.py:571] ***** Running training *****
+I1126 02:01:58.569192 127518508840768 train_qwenimage_edit.py:572]   Sample batch size per device = 4
+I1126 02:01:58.569235 127518508840768 train_qwenimage_edit.py:573]   Train batch size per device = 4
+I1126 02:01:58.569269 127518508840768 train_qwenimage_edit.py:574]   Gradient Accumulation steps = 8
+I1126 02:01:58.569318 127518508840768 train_qwenimage_edit.py:577] 
+I1126 02:01:58.569350 127518508840768 train_qwenimage_edit.py:578]   Total number of samples per epoch = 512
+I1126 02:01:58.569376 127518508840768 train_qwenimage_edit.py:579]   Total train batch size (w. parallel, distributed & accumulation) = 256
+I1126 02:01:58.569405 127518508840768 train_qwenimage_edit.py:582]   Number of gradient updates per inner epoch = 2
+I1126 02:01:58.569436 127518508840768 train_qwenimage_edit.py:585]   Number of inner epochs = 1
+/home/ubuntu/flow_grpo/scripts/train_qwenimage_edit.py:545: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  autocast = lambda: torch.cuda.amp.autocast(dtype=torch.bfloat16)
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+I1126 02:01:59.538141 131461695887168 train_qwenimage_edit.py:571] ***** Running training *****
+I1126 02:01:59.538415 131461695887168 train_qwenimage_edit.py:572]   Sample batch size per device = 4
+I1126 02:01:59.538457 131461695887168 train_qwenimage_edit.py:573]   Train batch size per device = 4
+I1126 02:01:59.538490 131461695887168 train_qwenimage_edit.py:574]   Gradient Accumulation steps = 8
+I1126 02:01:59.538525 131461695887168 train_qwenimage_edit.py:577] 
+I1126 02:01:59.538553 131461695887168 train_qwenimage_edit.py:578]   Total number of samples per epoch = 512
+I1126 02:01:59.538582 131461695887168 train_qwenimage_edit.py:579]   Total train batch size (w. parallel, distributed & accumulation) = 256
+I1126 02:01:59.538609 131461695887168 train_qwenimage_edit.py:582]   Number of gradient updates per inner epoch = 2
+I1126 02:01:59.538640 131461695887168 train_qwenimage_edit.py:585]   Number of inner epochs = 1
+/home/ubuntu/flow_grpo/scripts/train_qwenimage_edit.py:545: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  autocast = lambda: torch.cuda.amp.autocast(dtype=torch.bfloat16)
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+/home/ubuntu/flow_grpo/scripts/train_qwenimage_edit.py:545: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  autocast = lambda: torch.cuda.amp.autocast(dtype=torch.bfloat16)
+I1126 02:02:02.513085 129309114165056 train_qwenimage_edit.py:571] ***** Running training *****
+I1126 02:02:02.513360 129309114165056 train_qwenimage_edit.py:572]   Sample batch size per device = 4
+I1126 02:02:02.513405 129309114165056 train_qwenimage_edit.py:573]   Train batch size per device = 4
+I1126 02:02:02.513438 129309114165056 train_qwenimage_edit.py:574]   Gradient Accumulation steps = 8
+I1126 02:02:02.513465 129309114165056 train_qwenimage_edit.py:577] 
+I1126 02:02:02.513493 129309114165056 train_qwenimage_edit.py:578]   Total number of samples per epoch = 512
+I1126 02:02:02.513517 129309114165056 train_qwenimage_edit.py:579]   Total train batch size (w. parallel, distributed & accumulation) = 256
+I1126 02:02:02.513544 129309114165056 train_qwenimage_edit.py:582]   Number of gradient updates per inner epoch = 2
+I1126 02:02:02.513579 129309114165056 train_qwenimage_edit.py:585]   Number of inner epochs = 1
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+Eval:   0%|          | 0/4 [00:00<?, ?it/s]/home/ubuntu/flow_grpo/scripts/train_qwenimage_edit.py:545: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  autocast = lambda: torch.cuda.amp.autocast(dtype=torch.bfloat16)
+I1126 02:02:04.391663 139086812780352 train_qwenimage_edit.py:571] ***** Running training *****
+I1126 02:02:04.391963 139086812780352 train_qwenimage_edit.py:572]   Sample batch size per device = 4
+I1126 02:02:04.392006 139086812780352 train_qwenimage_edit.py:573]   Train batch size per device = 4
+I1126 02:02:04.392040 139086812780352 train_qwenimage_edit.py:574]   Gradient Accumulation steps = 8
+I1126 02:02:04.392069 139086812780352 train_qwenimage_edit.py:577] 
+I1126 02:02:04.392096 139086812780352 train_qwenimage_edit.py:578]   Total number of samples per epoch = 512
+I1126 02:02:04.392122 139086812780352 train_qwenimage_edit.py:579]   Total train batch size (w. parallel, distributed & accumulation) = 256
+I1126 02:02:04.392149 139086812780352 train_qwenimage_edit.py:582]   Number of gradient updates per inner epoch = 2
+I1126 02:02:04.392178 139086812780352 train_qwenimage_edit.py:585]   Number of inner epochs = 1
+/home/ubuntu/flow_grpo/scripts/train_qwenimage_edit.py:545: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  autocast = lambda: torch.cuda.amp.autocast(dtype=torch.bfloat16)
+I1126 02:02:05.242457 138918392764224 train_qwenimage_edit.py:571] ***** Running training *****
+I1126 02:02:05.242711 138918392764224 train_qwenimage_edit.py:572]   Sample batch size per device = 4
+I1126 02:02:05.242754 138918392764224 train_qwenimage_edit.py:573]   Train batch size per device = 4
+I1126 02:02:05.242792 138918392764224 train_qwenimage_edit.py:574]   Gradient Accumulation steps = 8
+I1126 02:02:05.242822 138918392764224 train_qwenimage_edit.py:577] 
+I1126 02:02:05.242856 138918392764224 train_qwenimage_edit.py:578]   Total number of samples per epoch = 512
+I1126 02:02:05.242884 138918392764224 train_qwenimage_edit.py:579]   Total train batch size (w. parallel, distributed & accumulation) = 256
+I1126 02:02:05.242916 138918392764224 train_qwenimage_edit.py:582]   Number of gradient updates per inner epoch = 2
+I1126 02:02:05.242947 138918392764224 train_qwenimage_edit.py:585]   Number of inner epochs = 1
+/home/ubuntu/flow_grpo/scripts/train_qwenimage_edit.py:545: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  autocast = lambda: torch.cuda.amp.autocast(dtype=torch.bfloat16)
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.52, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+I1126 02:02:12.941186 126125012420416 train_qwenimage_edit.py:571] ***** Running training *****
+I1126 02:02:12.941626 126125012420416 train_qwenimage_edit.py:572]   Sample batch size per device = 4
+I1126 02:02:12.941670 126125012420416 train_qwenimage_edit.py:573]   Train batch size per device = 4
+I1126 02:02:12.941705 126125012420416 train_qwenimage_edit.py:574]   Gradient Accumulation steps = 8
+I1126 02:02:12.941734 126125012420416 train_qwenimage_edit.py:577] 
+I1126 02:02:12.941760 126125012420416 train_qwenimage_edit.py:578]   Total number of samples per epoch = 512
+I1126 02:02:12.941784 126125012420416 train_qwenimage_edit.py:579]   Total train batch size (w. parallel, distributed & accumulation) = 256
+I1126 02:02:12.941809 126125012420416 train_qwenimage_edit.py:582]   Number of gradient updates per inner epoch = 2
+I1126 02:02:12.941838 126125012420416 train_qwenimage_edit.py:585]   Number of inner epochs = 1
+/home/ubuntu/flow_grpo/scripts/train_qwenimage_edit.py:545: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  autocast = lambda: torch.cuda.amp.autocast(dtype=torch.bfloat16)
+sde_window: (0, 49)
+sde_window: (0, 49)
+sde_window: (0, 49)
+sde_window: (0, 49)
+sde_window: (0, 49)
+sde_window: (0, 49)
+sde_window: (0, 49)
+sde_window: (0, 49)
+Eval:  25%|██▌       | 1/4 [03:26<10:18, 206.09s/it]sde_window: (0, 49)
+sde_window: (0, 49)                                      
+sde_window: (0, 49)
+sde_window: (0, 49)
+sde_window: (0, 49)
+sde_window: (0, 49)
+sde_window: (0, 49)
+sde_window: (0, 49)
+Eval:  50%|█████     | 2/4 [06:28<06:23, 191.93s/it]sde_window: (0, 49)
+sde_window: (0, 49)                                      
+sde_window: (0, 49)
+sde_window: (0, 49)
+sde_window: (0, 49)
+sde_window: (0, 49)
+sde_window: (0, 49)
+sde_window: (0, 49)
+Eval:  75%|███████▌  | 3/4 [09:30<03:07, 187.74s/it]sde_window: (0, 49)
+sde_window: (0, 49)                                      
+sde_window: (0, 49)
+sde_window: (0, 49)
+sde_window: (0, 49)
+sde_window: (0, 49)
+sde_window: (0, 49)
+sde_window: (0, 49)
+Eval: 100%|██████████| 4/4 [11:05<00:00, 166.29s/it]
+Eval pickscore: 0.7901272177696228                       
+Eval avg: 0.7901272177696228
+Epoch 0: sampling:   0%|          | 0/16 [00:00<?, ?it/s]sde_window: (0, 9)
+sde_window: (0, 9)
+sde_window: (0, 9)
+sde_window: (0, 9)
+sde_window: (0, 9)
+sde_window: (0, 9)
+sde_window: (0, 9)
+sde_window: (0, 9)
+Epoch 0: sampling:   6%|▋         | 1/16 [00:40<10:03, 40.22s/it]sde_window: (0, 9)                                               
+sde_window: (0, 9)
+sde_window: (0, 9)
+sde_window: (0, 9)
+sde_window: (0, 9)
+sde_window: (0, 9)
+sde_window: (0, 9)
+sde_window: (0, 9)
+Epoch 0: sampling:  12%|█▎        | 2/16 [01:19<09:18, 39.91s/it]sde_window: (0, 9)                                               
+sde_window: (0, 9)
+sde_window: (0, 9)
+sde_window: (0, 9)
+sde_window: (0, 9)
+sde_window: (0, 9)
+sde_window: (0, 9)
+sde_window: (0, 9)
+Epoch 0: sampling:  19%|█▉        | 3/16 [01:59<08:37, 39.80s/it]sde_window: (0, 9)                                               
+sde_window: (0, 9)
+sde_window: (0, 9)
+sde_window: (0, 9)
+sde_window: (0, 9)
+sde_window: (0, 9)
+sde_window: (0, 9)
+sde_window: (0, 9)
+Epoch 0: sampling:  25%|██▌       | 4/16 [02:39<07:57, 39.77s/it]sde_window: (0, 9)                                               
+sde_window: (0, 9)
+sde_window: (0, 9)
+sde_window: (0, 9)
+sde_window: (0, 9)
+sde_window: (0, 9)
+sde_window: (0, 9)
+sde_window: (0, 9)
+Epoch 0: sampling:  31%|███▏      | 5/16 [03:19<07:17, 39.74s/it]sde_window: (0, 9)                                               
+sde_window: (0, 9)sde_window: (0, 9)
+
+sde_window: (0, 9)
+sde_window: (0, 9)
+sde_window: (0, 9)
+sde_window: (0, 9)
+sde_window: (0, 9)
+Epoch 0: sampling:  38%|███▊      | 6/16 [03:58<06:37, 39.72s/it]sde_window: (0, 9)                                               
+sde_window: (0, 9)
+sde_window: (0, 9)
+sde_window: (0, 9)
+sde_window: (0, 9)
+sde_window: (0, 9)
+sde_window: (0, 9)
+sde_window: (0, 9)
+Epoch 0: sampling:  44%|████▍     | 7/16 [04:38<05:59, 39.90s/it]sde_window: (0, 9)                                               
+sde_window: (0, 9)
+sde_window: (0, 9)
+sde_window: (0, 9)
+sde_window: (0, 9)
+sde_window: (0, 9)
+sde_window: (0, 9)
+sde_window: (0, 9)
+Epoch 0: sampling:  50%|█████     | 8/16 [05:18<05:19, 39.91s/it]sde_window: (0, 9)                                               
+sde_window: (0, 9)
+sde_window: (0, 9)
+sde_window: (0, 9)
+sde_window: (0, 9)
+sde_window: (0, 9)
+sde_window: (0, 9)
+sde_window: (0, 9)
+Epoch 0: sampling:  56%|█████▋    | 9/16 [05:58<04:39, 39.88s/it]sde_window: (0, 9)                                               
+sde_window: (0, 9)
+sde_window: (0, 9)
+sde_window: (0, 9)
+sde_window: (0, 9)
+sde_window: (0, 9)
+sde_window: (0, 9)
+sde_window: (0, 9)
+Epoch 0: sampling:  62%|██████▎   | 10/16 [06:38<03:58, 39.82s/it]sde_window: (0, 9)                                              
+sde_window: (0, 9)
+sde_window: (0, 9)
+sde_window: (0, 9)
+sde_window: (0, 9)
+sde_window: (0, 9)
+sde_window: (0, 9)
+sde_window: (0, 9)
+Epoch 0: sampling:  69%|██████▉   | 11/16 [07:17<03:18, 39.76s/it]sde_window: (0, 9)                                              
+sde_window: (0, 9)
+sde_window: (0, 9)
+sde_window: (0, 9)
+sde_window: (0, 9)
+sde_window: (0, 9)
+sde_window: (0, 9)
+sde_window: (0, 9)
+Epoch 0: sampling:  75%|███████▌  | 12/16 [07:57<02:38, 39.71s/it]sde_window: (0, 9)                                              
+sde_window: (0, 9)
+sde_window: (0, 9)
+sde_window: (0, 9)
+sde_window: (0, 9)
+sde_window: (0, 9)
+sde_window: (0, 9)
+sde_window: (0, 9)
+Epoch 0: sampling:  81%|████████▏ | 13/16 [08:37<01:59, 39.83s/it]sde_window: (0, 9)                                              
+sde_window: (0, 9)
+sde_window: (0, 9)
+sde_window: (0, 9)
+sde_window: (0, 9)
+sde_window: (0, 9)
+sde_window: (0, 9)
+sde_window: (0, 9)
+Epoch 0: sampling:  88%|████████▊ | 14/16 [09:17<01:19, 39.71s/it]sde_window: (0, 9)                                              
+sde_window: (0, 9)
+sde_window: (0, 9)
+sde_window: (0, 9)
+sde_window: (0, 9)
+sde_window: (0, 9)
+sde_window: (0, 9)
+sde_window: (0, 9)
+Epoch 0: sampling:  94%|█████████▍| 15/16 [09:57<00:39, 39.78s/it]sde_window: (0, 9)                                              
+sde_window: (0, 9)
+sde_window: (0, 9)
+sde_window: (0, 9)
+sde_window: (0, 9)
+sde_window: (0, 9)
+sde_window: (0, 9)
+sde_window: (0, 9)
+Epoch 0: sampling: 100%|██████████| 16/16 [10:36<00:00, 39.80s/it]
+Waiting for rewards: 100%|██████████| 16/16 [00:00<00:00, 225.12it/s]
+len(prompts) 512
+len unique prompts 28
+advantages:  tensor(0.4438, device='cuda:0', dtype=torch.float64)
+Epoch 0.0: training:   0%|          | 0/16 [00:ratio ratio ratio ratio ratio ratio ratio tensor([1., 1., 1., 1.], device='cuda:0', grad_fn=<ExpBackward0>)
+ratio tensor([1., 1., 1., 1.], device='cuda:5', grad_fn=<ExpBackward0>)
+tensor([1., 1., 1., 1.], device='cuda:3', grad_fn=<ExpBackward0>)
+tensor([1., 1., 1., 1.], device='cuda:7', grad_fn=<ExpBackward0>)
+tensor([1., 1., 1., 1.], device='cuda:6', grad_fn=<ExpBackward0>)
+tensor([1., 1., 1., 1.], device='cuda:1', grad_fn=<ExpBackward0>)
+tensor([1., 1., 1., 1.], device='cuda:4', grad_fn=<ExpBackward0>)
+tensor([1., 1., 1., 1.], device='cuda:2', grad_fn=<ExpBackward0>)
+/home/ubuntu/flow_grpo/.venv/lib/python3.10/site-packages/torch/utils/checkpoint.py:1399: FutureWarning: `torch.cpu.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cpu', args...)` instead.
+  with device_autocast_ctx, torch.cpu.amp.autocast(**cpu_autocast_kwargs), recompute_context:  # type: ignore[attr-defined]
+/home/ubuntu/flow_grpo/.venv/lib/python3.10/site-packages/torch/utils/checkpoint.py:1399: FutureWarning: `torch.cpu.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cpu', args...)` instead.
+  with device_autocast_ctx, torch.cpu.amp.autocast(**cpu_autocast_kwargs), recompute_context:  # type: ignore[attr-defined]
+/home/ubuntu/flow_grpo/.venv/lib/python3.10/site-packages/torch/utils/checkpoint.py:1399: FutureWarning: `torch.cpu.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cpu', args...)` instead.
+  with device_autocast_ctx, torch.cpu.amp.autocast(**cpu_autocast_kwargs), recompute_context:  # type: ignore[attr-defined]
+/home/ubuntu/flow_grpo/.venv/lib/python3.10/site-packages/torch/utils/checkpoint.py:1399: FutureWarning: `torch.cpu.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cpu', args...)` instead.
+  with device_autocast_ctx, torch.cpu.amp.autocast(**cpu_autocast_kwargs), recompute_context:  # type: ignore[attr-defined]
+/home/ubuntu/flow_grpo/.venv/lib/python3.10/site-packages/torch/utils/checkpoint.py:1399: FutureWarning: `torch.cpu.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cpu', args...)` instead.
+  with device_autocast_ctx, torch.cpu.amp.autocast(**cpu_autocast_kwargs), recompute_context:  # type: ignore[attr-defined]
+/home/ubuntu/flow_grpo/.venv/lib/python3.10/site-packages/torch/utils/checkpoint.py:1399: FutureWarning: `torch.cpu.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cpu', args...)` instead.
+  with device_autocast_ctx, torch.cpu.amp.autocast(**cpu_autocast_kwargs), recompute_context:  # type: ignore[attr-defined]
+/home/ubuntu/flow_grpo/.venv/lib/python3.10/site-packages/torch/utils/checkpoint.py:1399: FutureWarning: `torch.cpu.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cpu', args...)` instead.
+  with device_autocast_ctx, torch.cpu.amp.autocast(**cpu_autocast_kwargs), recompute_context:  # type: ignore[attr-defined]
+/home/ubuntu/flow_grpo/.venv/lib/python3.10/site-packages/torch/utils/checkpoint.py:1399: FutureWarning: `torch.cpu.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cpu', args...)` instead.
+  with device_autocast_ctx, torch.cpu.amp.autocast(**cpu_autocast_kwargs), recompute_context:  # type: ignore[attr-defined]
+                                                       ratio tensor([1., 1., 1., 1.], device='cuda:5', grad_fn=<ExpBackward0>)t]
+ratio tensor([1., 1., 1., 1.], device='cuda:0', grad_fn=<ExpBackward0>)
+ratio tensor([1., 1., 1., 1.], device='cuda:7', grad_fn=<ExpBackward0>)ratio
+ ratio tensor([1., 1., 1., 1.], device='cuda:3', grad_fn=<ExpBackward0>)
+ratio ratio tensor([1., 1., 1., 1.], device='cuda:4', grad_fn=<ExpBackward0>)
+tensor([1., 1., 1., 1.], device='cuda:1', grad_fn=<ExpBackward0>)
+tensor([1., 1., 1., 1.], device='cuda:2', grad_fn=<ExpBackward0>)
+ratio tensor([1., 1., 1., 1.], device='cuda:6', grad_fn=<ExpBackward0>)
+                                                       ratio ratio ratio ratio tensor([1., 1., 1., 1.], device='cuda:3', grad_fn=<ExpBackward0>)
+ratio tensor([1., 1., 1., 1.], device='cuda:5', grad_fn=<ExpBackward0>)tensor([1., 1., 1., 1.], device='cuda:4', grad_fn=<ExpBackward0>)
+
+tensor([1., 1., 1., 1.], device='cuda:6', grad_fn=<ExpBackward0>)
+ratio ratio tensor([1., 1., 1., 1.], device='cuda:7', grad_fn=<ExpBackward0>)
+tensor([1., 1., 1., 1.], device='cuda:2', grad_fn=<ExpBackward0>)tensor([1., 1., 1., 1.], device='cuda:1', grad_fn=<ExpBackward0>)
+
+ratio tensor([1., 1., 1., 1.], device='cuda:0', grad_fn=<ExpBackward0>)
+                                                       ratio tensor([1., 1., 1., 1.], device='cuda:5', grad_fn=<ExpBackward0>)t]
+ratio ratio ratio tensor([1., 1., 1., 1.], device='cuda:7', grad_fn=<ExpBackward0>)
+tensor([1., 1., 1., 1.], device='cuda:3', grad_fn=<ExpBackward0>)
+ratio tensor([1., 1., 1., 1.], device='cuda:0', grad_fn=<ExpBackward0>)
+tensor([1., 1., 1., 1.], device='cuda:2', grad_fn=<ExpBackward0>)
+ratio ratio tensor([1., 1., 1., 1.], device='cuda:1', grad_fn=<ExpBackward0>)
+tensor([1., 1., 1., 1.], device='cuda:6', grad_fn=<ExpBackward0>)
+ratio tensor([1., 1., 1., 1.], device='cuda:4', grad_fn=<ExpBackward0>)
+                                                       ratio tensor([1., 1., 1., 1.], device='cuda:5', grad_fn=<ExpBackward0>)t]
+ratio tensor([1., 1., 1., 1.], device='cuda:6', grad_fn=<ExpBackward0>)
+ratio tensor([1., 1., 1., 1.], device='cuda:4', grad_fn=<ExpBackward0>)
+ratio tensor([1., 1., 1., 1.], device='cuda:0', grad_fn=<ExpBackward0>)
+ratio tensor([1., 1., 1., 1.], device='cuda:2', grad_fn=<ExpBackward0>)
+ratioratio  tensor([1., 1., 1., 1.], device='cuda:1', grad_fn=<ExpBackward0>)
+tensor([1., 1., 1., 1.], device='cuda:7', grad_fn=<ExpBackward0>)
+ratio tensor([1., 1., 1., 1.], device='cuda:3', grad_fn=<ExpBackward0>)
+                                                       ratio ratio tensor([1., 1., 1., 1.], device='cuda:5', grad_fn=<ExpBackward0>)
+ratio tensor([1., 1., 1., 1.], device='cuda:4', grad_fn=<ExpBackward0>)
+ratio ratio tensor([1., 1., 1., 1.], device='cuda:1', grad_fn=<ExpBackward0>)
+tensor([1., 1., 1., 1.], device='cuda:2', grad_fn=<ExpBackward0>)
+ratio tensor([1., 1., 1., 1.], device='cuda:0', grad_fn=<ExpBackward0>)
+tensor([1., 1., 1., 1.], device='cuda:3', grad_fn=<ExpBackward0>)
+ratio tensor([1., 1., 1., 1.], device='cuda:6', grad_fn=<ExpBackward0>)
+ratio tensor([1., 1., 1., 1.], device='cuda:7', grad_fn=<ExpBackward0>)
+                                                       ratio tensor([1., 1., 1., 1.], device='cuda:3', grad_fn=<ExpBackward0>)t]
+ratio tensor([1., 1., 1., 1.], device='cuda:6', grad_fn=<ExpBackward0>)
+ratio ratio ratio tensor([1., 1., 1., 1.], device='cuda:4', grad_fn=<ExpBackward0>)
+tensor([1., 1., 1., 1.], device='cuda:7', grad_fn=<ExpBackward0>)
+tensor([1., 1., 1., 1.], device='cuda:2', grad_fn=<ExpBackward0>)
+ratio tensor([1., 1., 1., 1.], device='cuda:5', grad_fn=<ExpBackward0>)
+ratio tensor([1., 1., 1., 1.], device='cuda:1', grad_fn=<ExpBackward0>)
+ratio tensor([1., 1., 1., 1.], device='cuda:0', grad_fn=<ExpBackward0>)
+                                                       ratio tensor([1., 1., 1., 1.], device='cuda:5', grad_fn=<ExpBackward0>)t]
+ratio tensor([1., 1., 1., 1.], device='cuda:7', grad_fn=<ExpBackward0>)
+ratio tensor([1., 1., 1., 1.], device='cuda:3', grad_fn=<ExpBackward0>)
+ratio ratio ratio ratio tensor([1., 1., 1., 1.], device='cuda:2', grad_fn=<ExpBackward0>)
+tensor([1., 1., 1., 1.], device='cuda:6', grad_fn=<ExpBackward0>)
+tensor([1., 1., 1., 1.], device='cuda:0', grad_fn=<ExpBackward0>)
+tensor([1., 1., 1., 1.], device='cuda:4', grad_fn=<ExpBackward0>)
+ratio tensor([1., 1., 1., 1.], device='cuda:1', grad_fn=<ExpBackward0>)
+                                                       ratio ratio ratio tensor([1., 1., 1., 1.], device='cuda:6', grad_fn=<ExpBackward0>)
+tensor([1., 1., 1., 1.], device='cuda:2', grad_fn=<ExpBackward0>)
+ratio tensor([1., 1., 1., 1.], device='cuda:5', grad_fn=<ExpBackward0>)
+ratio tensor([1., 1., 1., 1.], device='cuda:4', grad_fn=<ExpBackward0>)
+tensor([1., 1., 1., 1.], device='cuda:0', grad_fn=<ExpBackward0>)
+ratio tensor([1., 1., 1., 1.], device='cuda:7', grad_fn=<ExpBackward0>)
+ratio tensor([1., 1., 1., 1.], device='cuda:1', grad_fn=<ExpBackward0>)
+ratio tensor([1., 1., 1., 1.], device='cuda:3', grad_fn=<ExpBackward0>)
+Epoch 0.0: training:   6%|▋         | 1/16 [02:ratio ratio tensor([1., 1., 1., 1.], device='cuda:3', grad_fn=<ExpBackward0>)    
+tensor([1., 1., 1., 1.], device='cuda:5', grad_fn=<ExpBackward0>)
+ratio tensor([1., 1., 1., 1.], device='cuda:7', grad_fn=<ExpBackward0>)
+ratio ratio tensor([1., 1., 1., 1.], device='cuda:4', grad_fn=<ExpBackward0>)
+ratio tensor([1., 1., 1., 1.], device='cuda:6', grad_fn=<ExpBackward0>)
+tensor([1., 1., 1., 1.], device='cuda:2', grad_fn=<ExpBackward0>)
+ratio ratio tensor([1., 1., 1., 1.], device='cuda:1', grad_fn=<ExpBackward0>)
+tensor([1., 1., 1., 1.], device='cuda:0', grad_fn=<ExpBackward0>)
+                                                       ratio ratio tensor([1., 1., 1., 1.], device='cuda:6', grad_fn=<ExpBackward0>)
+ratio tensor([1., 1., 1., 1.], device='cuda:3', grad_fn=<ExpBackward0>)
+ratio tensor([1., 1., 1., 1.], device='cuda:5', grad_fn=<ExpBackward0>)
+tensor([1., 1., 1., 1.], device='cuda:7', grad_fn=<ExpBackward0>)
+ratio ratio tensor([1., 1., 1., 1.], device='cuda:0', grad_fn=<ExpBackward0>)
+tensor([1., 1., 1., 1.], device='cuda:2', grad_fn=<ExpBackward0>)
+ratio tensor([1., 1., 1., 1.], device='cuda:1', grad_fn=<ExpBackward0>)
+ratio tensor([1., 1., 1., 1.], device='cuda:4', grad_fn=<ExpBackward0>)
+                                                       ratio tensor([1., 1., 1., 1.], device='cuda:5', grad_fn=<ExpBackward0>)t]
+ratio tensor([1., 1., 1., 1.], device='cuda:6', grad_fn=<ExpBackward0>)
+ratio ratio tensor([1., 1., 1., 1.], device='cuda:2', grad_fn=<ExpBackward0>)
+tensor([1., 1., 1., 1.], device='cuda:4', grad_fn=<ExpBackward0>)
+ratio tensor([1., 1., 1., 1.], device='cuda:7', grad_fn=<ExpBackward0>)
+ratio tensor([1., 1., 1., 1.], device='cuda:0', grad_fn=<ExpBackward0>)
+ratio ratio tensor([1., 1., 1., 1.], device='cuda:1', grad_fn=<ExpBackward0>)
+tensor([1., 1., 1., 1.], device='cuda:3', grad_fn=<ExpBackward0>)
+                                                       ratio ratio tensor([1., 1., 1., 1.], device='cuda:5', grad_fn=<ExpBackward0>)
+tensor([1., 1., 1., 1.], device='cuda:4', grad_fn=<ExpBackward0>)
+ratio ratio ratio tensor([1., 1., 1., 1.], device='cuda:2', grad_fn=<ExpBackward0>)
+tensor([1., 1., 1., 1.], device='cuda:0', grad_fn=<ExpBackward0>)
+tensor([1., 1., 1., 1.], device='cuda:6', grad_fn=<ExpBackward0>)
+ratio tensor([1., 1., 1., 1.], device='cuda:7', grad_fn=<ExpBackward0>)
+ratio tensor([1., 1., 1., 1.], device='cuda:3', grad_fn=<ExpBackward0>)
+ratio tensor([1., 1., 1., 1.], device='cuda:1', grad_fn=<ExpBackward0>)
+                                                       ratio tensor([1., 1., 1., 1.], device='cuda:3', grad_fn=<ExpBackward0>)t]
+ratio ratio tensor([1., 1., 1., 1.], device='cuda:0', grad_fn=<ExpBackward0>)
+ratioratio  ratio tensor([1., 1., 1., 1.], device='cuda:6', grad_fn=<ExpBackward0>)
+tensor([1., 1., 1., 1.], device='cuda:7', grad_fn=<ExpBackward0>)
+tensor([1., 1., 1., 1.], device='cuda:2', grad_fn=<ExpBackward0>)
+tensor([1., 1., 1., 1.], device='cuda:4', grad_fn=<ExpBackward0>)
+ratio tensor([1., 1., 1., 1.], device='cuda:1', grad_fn=<ExpBackward0>)
+ratio tensor([1., 1., 1., 1.], device='cuda:5', grad_fn=<ExpBackward0>)
+                                                       ratio tensor([1., 1., 1., 1.], device='cuda:3', grad_fn=<ExpBackward0>)t]
+ratio ratio ratio tensor([1., 1., 1., 1.], device='cuda:5', grad_fn=<ExpBackward0>)
+tensor([1., 1., 1., 1.], device='cuda:7', grad_fn=<ExpBackward0>)
+ratio tensor([1., 1., 1., 1.], device='cuda:6', grad_fn=<ExpBackward0>)
+ratio tensor([1., 1., 1., 1.], device='cuda:4', grad_fn=<ExpBackward0>)
+tensor([1., 1., 1., 1.], device='cuda:2', grad_fn=<ExpBackward0>)
+ratio tensor([1., 1., 1., 1.], device='cuda:1', grad_fn=<ExpBackward0>)
+ratio tensor([1., 1., 1., 1.], device='cuda:0', grad_fn=<ExpBackward0>)
+                                                       ratio tensor([1., 1., 1., 1.], device='cuda:3', grad_fn=<ExpBackward0>)t]
+ratio ratio tensor([1., 1., 1., 1.], device='cuda:5', grad_fn=<ExpBackward0>)
+tensor([1., 1., 1., 1.], device='cuda:6', grad_fn=<ExpBackward0>)
+ratio tensor([1., 1., 1., 1.], device='cuda:4', grad_fn=<ExpBackward0>)
+ratio ratio ratio tensor([1., 1., 1., 1.], device='cuda:2', grad_fn=<ExpBackward0>)
+tensor([1., 1., 1., 1.], device='cuda:7', grad_fn=<ExpBackward0>)
+tensor([1., 1., 1., 1.], device='cuda:0', grad_fn=<ExpBackward0>)
+ratio tensor([1., 1., 1., 1.], device='cuda:1', grad_fn=<ExpBackward0>)
+                                                       ratio tensor([1., 1., 1., 1.], device='cuda:5', grad_fn=<ExpBackward0>)t]
+ratio ratio ratio ratio tensor([1., 1., 1., 1.], device='cuda:2', grad_fn=<ExpBackward0>)
+tensor([1., 1., 1., 1.], device='cuda:6', grad_fn=<ExpBackward0>)
+tensor([1., 1., 1., 1.], device='cuda:3', grad_fn=<ExpBackward0>)
+ratio tensor([1., 1., 1., 1.], device='cuda:4', grad_fn=<ExpBackward0>)
+tensor([1., 1., 1., 1.], device='cuda:0', grad_fn=<ExpBackward0>)
+ratio tensor([1., 1., 1., 1.], device='cuda:7', grad_fn=<ExpBackward0>)
+ratio tensor([1., 1., 1., 1.], device='cuda:1', grad_fn=<ExpBackward0>)
+                                                       ratio ratio ratio ratio tensor([1., 1., 1., 1.], device='cuda:4', grad_fn=<ExpBackward0>)
+tensor([1., 1., 1., 1.], device='cuda:0', grad_fn=<ExpBackward0>)
+tensor([1., 1., 1., 1.], device='cuda:2', grad_fn=<ExpBackward0>)
+tensor([1., 1., 1., 1.], device='cuda:1', grad_fn=<ExpBackward0>)
+ratio tensor([1., 1., 1., 1.], device='cuda:3', grad_fn=<ExpBackward0>)
+ratio tensor([1., 1., 1., 1.], device='cuda:6', grad_fn=<ExpBackward0>)
+ratio ratio tensor([1., 1., 1., 1.], device='cuda:5', grad_fn=<ExpBackward0>)
+tensor([1., 1., 1., 1.], device='cuda:7', grad_fn=<ExpBackward0>)
+Epoch 0.0: training:  12%|█▎        | 2/16 [04:ratio tensor([1., 1., 1., 1.], device='cuda:5', grad_fn=<ExpBackward0>)s]        
+ratio ratio ratio tensor([1., 1., 1., 1.], device='cuda:6', grad_fn=<ExpBackward0>)
+tensor([1., 1., 1., 1.], device='cuda:7', grad_fn=<ExpBackward0>)
+ratio ratio tensor([1., 1., 1., 1.], device='cuda:4', grad_fn=<ExpBackward0>)
+tensor([1., 1., 1., 1.], device='cuda:3', grad_fn=<ExpBackward0>)
+tensor([1., 1., 1., 1.], device='cuda:2', grad_fn=<ExpBackward0>)
+ratio tensor([1., 1., 1., 1.], device='cuda:0', grad_fn=<ExpBackward0>)
+ratio tensor([1., 1., 1., 1.], device='cuda:1', grad_fn=<ExpBackward0>)
+                                                       ratio tensor([1., 1., 1., 1.], device='cuda:5', grad_fn=<ExpBackward0>)t]
+ratio tensor([1., 1., 1., 1.], device='cuda:6', grad_fn=<ExpBackward0>)
+ratio ratio tensor([1., 1., 1., 1.], device='cuda:7', grad_fn=<ExpBackward0>)
+tensor([1., 1., 1., 1.], device='cuda:0', grad_fn=<ExpBackward0>)
+ratio tensor([1., 1., 1., 1.], device='cuda:4', grad_fn=<ExpBackward0>)
+ratio tensor([1., 1., 1., 1.], device='cuda:1', grad_fn=<ExpBackward0>)
+ratio tensor([1., 1., 1., 1.], device='cuda:3', grad_fn=<ExpBackward0>)
+ratio tensor([1., 1., 1., 1.], device='cuda:2', grad_fn=<ExpBackward0>)
+                                                       ratio tensor([1., 1., 1., 1.], device='cuda:5', grad_fn=<ExpBackward0>)t]
+ratio tensor([1., 1., 1., 1.], device='cuda:6', grad_fn=<ExpBackward0>)
+ratio ratio tensor([1., 1., 1., 1.], device='cuda:3', grad_fn=<ExpBackward0>)
+tensor([1., 1., 1., 1.], device='cuda:0', grad_fn=<ExpBackward0>)
+ratio ratio tensor([1., 1., 1., 1.], device='cuda:7', grad_fn=<ExpBackward0>)
+tensor([1., 1., 1., 1.], device='cuda:4', grad_fn=<ExpBackward0>)
+ratio ratio tensor([1., 1., 1., 1.], device='cuda:2', grad_fn=<ExpBackward0>)
+tensor([1., 1., 1., 1.], device='cuda:1', grad_fn=<ExpBackward0>)
+                                                       ratio tensor([1., 1., 1., 1.], device='cuda:3', grad_fn=<ExpBackward0>)t]
+ratio ratio tensor([1., 1., 1., 1.], device='cuda:5', grad_fn=<ExpBackward0>)
+tensor([1., 1., 1., 1.], device='cuda:4', grad_fn=<ExpBackward0>)
+ratio ratio ratio tensor([1., 1., 1., 1.], device='cuda:7', grad_fn=<ExpBackward0>)
+tensor([1., 1., 1., 1.], device='cuda:0', grad_fn=<ExpBackward0>)
+ratio tensor([1., 1., 1., 1.], device='cuda:1', grad_fn=<ExpBackward0>)
+tensor([1., 1., 1., 1.], device='cuda:2', grad_fn=<ExpBackward0>)
+ratio tensor([1., 1., 1., 1.], device='cuda:6', grad_fn=<ExpBackward0>)
+                                                       ratio tensor([1., 1., 1., 1.], device='cuda:3', grad_fn=<ExpBackward0>)t]
+ratio ratioratio  ratio ratio tensor([1., 1., 1., 1.], device='cuda:5', grad_fn=<ExpBackward0>)
+tensor([1., 1., 1., 1.], device='cuda:6', grad_fn=<ExpBackward0>)
+tensor([1., 1., 1., 1.], device='cuda:7', grad_fn=<ExpBackward0>)
+ratio tensor([1., 1., 1., 1.], device='cuda:2', grad_fn=<ExpBackward0>)
+tensor([1., 1., 1., 1.], device='cuda:4', grad_fn=<ExpBackward0>)
+tensor([1., 1., 1., 1.], device='cuda:1', grad_fn=<ExpBackward0>)
+ratio tensor([1., 1., 1., 1.], device='cuda:0', grad_fn=<ExpBackward0>)
