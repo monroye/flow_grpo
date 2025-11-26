@@ -899,8 +899,7 @@ def counting_qwenimage_edit_8gpu():
     config.eval_freq = 30
     config.save_dir = 'logs/pickscore/qwenimage_edit'
     config.reward_fn = {
-        "image_similarity": 0.2,
-        "geneval": 0.8,
+        "pickscore": 1.0,
     }
     config.per_prompt_stat_tracking = True
     return config
